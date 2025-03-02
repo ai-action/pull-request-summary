@@ -10,7 +10,7 @@
 
 ```yaml
 # .github/workflows/pr-summary.yml
-on: push
+on: pull_request
 jobs:
   pr-summary:
     runs-on: ubuntu-latest
