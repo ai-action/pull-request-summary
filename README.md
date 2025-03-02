@@ -1,22 +1,25 @@
-# github-actions-composite-template
+# pull-request-summary
 
-[![version](https://badgen.net/github/release/remarkablemark/github-actions-composite-template)](https://github.com/remarkablemark/github-actions-composite-template/releases)
-[![test](https://github.com/remarkablemark/github-actions-composite-template/actions/workflows/test.yml/badge.svg)](https://github.com/remarkablemark/github-actions-composite-template/actions/workflows/test.yml)
+[![version](https://badgen.net/github/release/ai-action/pull-request-summary)](https://github.com/ai-action/pull-request-summary/releases)
+[![test](https://github.com/ai-action/pull-request-summary/actions/workflows/test.yml/badge.svg)](https://github.com/ai-action/pull-request-summary/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-⚙️ GitHub Actions Composite Template. Inspired by [remarkablemark/hello-world-composite-action](https://github.com/remarkablemark/hello-world-composite-action).
+📝 GitHub Action that summarizes pull requests with AI (LLM).
 
 ## Quick Start
 
 ```yaml
-# .github/workflows/github-actions-composite-template.yml
+# .github/workflows/pr-summary.yml
 on: push
 jobs:
-  github-actions-composite-template:
+  pr-summary:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
-      - name: GitHub Actions Composite Template
-        uses: remarkablemark/github-actions-composite-template@v1
+      - name: PR summary
+        uses: ai-action/pull-request-summary@v1
 ```
 
 ## Usage
@@ -24,7 +27,7 @@ jobs:
 **Basic:**
 
 ```yaml
-- uses: remarkablemark/github-actions-composite-template@v1
+- uses: ai-action/pull-request-summary@v1
 ```
 
 See [action.yml](action.yml)
@@ -36,14 +39,10 @@ See [action.yml](action.yml)
 **Optional**: The version. Defaults to `1.2.3`:
 
 ```yaml
-- uses: remarkablemark/github-actions-composite-template@v1
+- uses: ai-action/pull-request-summary@v1
   with:
     version: 1.2.3
 ```
-
-## Contributions
-
-Contributions are welcome! 👋
 
 ## License
 

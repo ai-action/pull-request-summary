@@ -1,11 +1,13 @@
-name: github-actions-composite-template
-description: GitHub Actions Composite Template
+name: pull-request-summary
+description: GitHub Action that reviews pull requests with AI (LLM)
 author: remarkablemark
+
 inputs:
   version:
     description: Description
     required: false
     default: 1.2.3
+
 runs:
   using: composite
   steps:
@@ -13,6 +15,7 @@ runs:
       shell: bash
       run: |
         echo 'version: ${{ inputs.version }}'
+
 branding:
-  icon: activity
-  color: white
+  icon: code
+  color: gray-dark
