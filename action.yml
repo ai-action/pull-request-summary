@@ -1,20 +1,51 @@
 name: pull-request-summary
-description: GitHub Action that reviews pull requests with AI (LLM)
+description: GitHub Action that summarizes pull requests with AI (LLM)
 author: remarkablemark
 
 inputs:
-  version:
-    description: Description
+  model:
+    description: Language model name
+    default: codellama
     required: false
-    default: 1.2.3
+  prompt:
+    description: Input prompt before the PR diff
+    default: 'Summarize the code diff concisely:'
+    required: false
+  token:
+    description: GitHub token
+    default: ${{ github.token }}
+    required: false
 
 runs:
   using: composite
   steps:
-    - name: Print version
-      shell: bash
-      run: |
-        echo 'version: ${{ inputs.version }}'
+      - name: Setup ollama
+        uses: ai-action/setup-ollama@v1
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Summarize pull request
+        shell: bash
+        run: |
+          PROMPT=$(printf '%s\n%s' "$PROMPT" "$(gh pr diff $PR_NUMBER)")
+          RESPONSE=$(ollama run $MODEL "$PROMPT" | sed 's/^/> /')
+          BODY=$(gh pr view $PR_NUMBER --json body --jq .body)
+          COMMENT_START='<!--pull-request-summary-start-->'
+          COMMENT_END='<!--pull-request-summary-end-->'
+
+          if [[ "$BODY" == *"$COMMENT_START"* ]]; then
+            # delete between patterns (inclusive)
+            BODY=$(echo "$BODY" | sed "/$COMMENT_START/,/$COMMENT_END/d")
+          fi
+
+          BODY=$(printf '%s\n\n%s\n\n> [!NOTE]\n%s\n\n%s\n' "$BODY" $COMMENT_START "$RESPONSE" $COMMENT_END)
+          gh pr edit $PR_NUMBER --body "$BODY"
+        env:
+          GH_TOKEN: ${{ inputs.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PROMPT: ${{ inputs.prompt }}
+          MODEL: ${{ inputs.model }}
 
 branding:
   icon: code

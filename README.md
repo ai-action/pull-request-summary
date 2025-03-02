@@ -24,7 +24,7 @@ jobs:
 
 ## Usage
 
-**Basic:**
+Append summary to PR description:
 
 ```yaml
 - uses: ai-action/pull-request-summary@v1
@@ -34,14 +34,34 @@ See [action.yml](action.yml)
 
 ## Inputs
 
-### `version`
+### `model`
 
-**Optional**: The version. Defaults to `1.2.3`:
+**Optional**: The language [model](https://ollama.com/library) to use. Defaults to [codellama](https://ollama.com/library/codellama):
 
 ```yaml
 - uses: ai-action/pull-request-summary@v1
   with:
-    version: 1.2.3
+    model: codellama
+```
+
+### `prompt`
+
+**Optional**: The input prompt that comes before the PR diff. Defaults to:
+
+```yaml
+- uses: ai-action/pull-request-summary@v1
+  with:
+    prompt: 'Summarize the code diff concisely:'
+```
+
+### `token`
+
+**Optional**: The GitHub token. Defaults to `GITHUB_TOKEN`:
+
+```yaml
+- uses: ai-action/pull-request-summary@v1
+  with:
+    token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## License
