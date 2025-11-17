@@ -1,6 +1,6 @@
 # pull-request-summary
 
-[![version](https://badgen.net/github/release/ai-action/pull-request-summary)](https://github.com/ai-action/pull-request-summary/releases)
+[![version](https://img.shields.io/github/release/ai-action/pull-request-summary)](https://github.com/ai-action/pull-request-summary/releases)
 [![test](https://github.com/ai-action/pull-request-summary/actions/workflows/test.yml/badge.svg)](https://github.com/ai-action/pull-request-summary/actions/workflows/test.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
