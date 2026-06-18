@@ -23,7 +23,7 @@ runs:
         uses: ai-action/setup-ollama@v2
 
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Summarize pull request
         shell: bash
